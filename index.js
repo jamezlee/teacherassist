@@ -7,15 +7,14 @@ app.use(bodyParser.urlencoded({extended: true}));
 // app.use(bodyParser.urlencoded({extended:false}));
 const teacherrouter = require('./routes/teacher.js');
 const stdrouter = require('./routes/student.js');
-// app.use(function(req, res, next) {
-//     if (req.headers.origin) {
-//         res.header('Access-Control-Allow-Origin', '*')
-//         res.header('Access-Control-Allow-Headers', 'X-Requested-With,Content-Type,Authorization')
-//         res.header('Access-Control-Allow-Methods', 'GET,PUT,PATCH,POST,DELETE')
-//         if (req.method === 'OPTIONS') return res.send(200)
-//     }
-//     next()
-// })
+app.use(function(req, res, next) {
+    if (req.headers.origin) {
+        res.header('Access-Control-Allow-Origin', '*')
+        res.header('Access-Control-Allow-Headers', 'X-Requested-With,Content-Type,Authorization')
+        res.header('Access-Control-Allow-Methods', 'GET,PUT,PATCH,POST,DELETE')
+    }
+    next()
+})
 app.use(stdrouter,teacherrouter);
 
 app.get("/", (req, res) => {
